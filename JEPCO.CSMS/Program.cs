@@ -1,5 +1,10 @@
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using JEPCO.Infrastructure.Extensions;
+using JEPCO.Application.Extensions;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +39,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.RegisterInfrastructureServices(builder.Configuration);
+builder.Services.RegisterApplicationServices(builder.Configuration);
 
 
 var app = builder.Build();
