@@ -1,5 +1,8 @@
+using JEPCO.Shared;
+using JEPCO.Shared.Constants;
 using JEPCO.Shared.Models.WeatherForecast;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace JEPCO.CSMS.Controllers.V1
 {
@@ -13,10 +16,12 @@ namespace JEPCO.CSMS.Controllers.V1
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IStringLocalizer<SharedResource> localizer)
         {
             _logger = logger;
+            _localizer = localizer;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -30,10 +35,11 @@ namespace JEPCO.CSMS.Controllers.V1
             })
             .ToArray();
 
+
             return new WeatherForcasteResponseModel()
             {
                 result = data,
-                Message = ""
+                Message = _localizer.GetString(LocalizationKeysConstant.DataRetrieved)
             };
         }
     }
