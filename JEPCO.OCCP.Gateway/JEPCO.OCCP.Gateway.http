@@ -1,0 +1,6 @@
+@JEPCO.OCCP.Gateway_HostAddress = http://localhost:5289
+
+GET {{JEPCO.OCCP.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

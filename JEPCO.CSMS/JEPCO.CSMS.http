@@ -1,0 +1,6 @@
+@JEPCO.CSMS_HostAddress = http://localhost:5161
+
+GET {{JEPCO.CSMS_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

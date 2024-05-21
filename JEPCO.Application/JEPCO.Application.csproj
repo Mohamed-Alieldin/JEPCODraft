@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JEPCO.Domain\JEPCO.Domain.csproj" />
+    <ProjectReference Include="..\JEPCO.Shared\JEPCO.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\UnitOfWork\" />
+    <Folder Include="Interfaces\Repository\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Mapper\" />
+  </ItemGroup>
+
+</Project>
