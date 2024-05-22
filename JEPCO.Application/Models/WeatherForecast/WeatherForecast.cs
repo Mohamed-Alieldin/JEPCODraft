@@ -1,6 +1,6 @@
 ﻿ 
 
-namespace JEPCO.Shared.Models.WeatherForecast;
+namespace JEPCO.Application.Models.WeatherForecast;
 
 public class WeatherForecast
 {

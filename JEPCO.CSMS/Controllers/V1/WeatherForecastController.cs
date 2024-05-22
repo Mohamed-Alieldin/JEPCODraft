@@ -1,6 +1,6 @@
+using JEPCO.Application.Models.WeatherForecast;
 using JEPCO.Shared;
 using JEPCO.Shared.Constants;
-using JEPCO.Shared.Models.WeatherForecast;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 
