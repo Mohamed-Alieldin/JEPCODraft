@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using JEPCO.Application.Services.User;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using JEPCO.Application.Services.WeatherForecast;
 
 namespace JEPCO.Application.Extensions;
 
@@ -11,7 +13,8 @@ public static class StartupExtension
     {
         _services = services;
 
-        // _services.AddScoped<SomeRequestService>();
+        _services.AddScoped<IUserService,UserService>();
+        _services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
     }
 }

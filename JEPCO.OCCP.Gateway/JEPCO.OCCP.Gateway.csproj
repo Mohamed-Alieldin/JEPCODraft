@@ -14,4 +14,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JEPCO.Application\JEPCO.Application.csproj" />
+    <ProjectReference Include="..\JEPCO.Infrastructure\JEPCO.Infrastructure.csproj" />
+    <ProjectReference Include="..\JEPCO.Shared\JEPCO.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
