@@ -1,8 +1,11 @@
 ﻿
 
+using JEPCO.Domain.Entities;
+
 namespace JEPCO.Application.Services.WeatherForecast;
 
 public interface IWeatherForecastService
 {
-    IEnumerable<Models.WeatherForecast.WeatherForecast> Get();
+    Task<List<WeatherForecastTable>> Get();
+    Task<int> CreateNewRow();
 }

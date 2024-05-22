@@ -1,24 +1,29 @@
 ﻿
 
+using JEPCO.Application.Interfaces.UnitOfWork;
+using JEPCO.Domain.Entities;
+
 namespace JEPCO.Application.Services.WeatherForecast
 {
     public class WeatherForecastService : IWeatherForecastService
     {
-        private static readonly string[] Summaries = new[]
-{
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        public IEnumerable<Models.WeatherForecast.WeatherForecast> Get()
+        private readonly IUnitOfWork unitOfWork;
+        public WeatherForecastService(IUnitOfWork unitOfWork)
         {
-            return  Enumerable.Range(1, 5).Select(index => new Models.WeatherForecast.WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            this.unitOfWork = unitOfWork;
+        }
 
+        public async Task<List<WeatherForecastTable>> Get()
+        {
+            var res = await unitOfWork.WeatherForecastRepo.GetAll();
+            return res;
+        }
+
+        public async Task<int> CreateNewRow()
+        {
+            var res = await unitOfWork.WeatherForecastRepo.CreateNew();
+            await unitOfWork.CompleteAsync();
+            return res;
         }
     }
 }

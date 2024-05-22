@@ -32,9 +32,20 @@ namespace JEPCO.CSMS.Controllers.V1
 
             return new WeatherForcasteResponseModel()
             {
-                result = data,
+                result = data.Result.Select(a => new WeatherForecast
+                {
+                    Date = a.Date,
+                    Summary = a.Summary,
+                    TemperatureC = 32,
+                }),
                 Message = _localizer.GetString(LocalizationKeysConstant.DataRetrieved)
             };
+        }
+        [HttpPost(Name = "add")]
+        public async Task<IActionResult> Post()
+        {
+            var res = await weatherForecastService.CreateNewRow();
+            return Ok(res);
         }
     }
 }
