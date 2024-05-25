@@ -1,5 +1,6 @@
 ﻿using JEPCO.Application.Interfaces.Repositories;
 using JEPCO.Application.Interfaces.Repositories.Base;
+using JEPCO.Application.Models.WeatherForecast;
 using JEPCO.Domain.Entities;
 using JEPCO.Infrastructure.Persistence.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
@@ -14,20 +15,20 @@ namespace JEPCO.Infrastructure.Persistence.Repository
     public class WeatherForecastRepo : Repository<WeatherForecastTable>, IWeatherForecastRepo
     {
         public WeatherForecastRepo(ApplicationDbContext context) : base(context) { }
-        public async Task<int> CreateNew()
+        public async Task<WeatherForecastTable> CreateNew()
         {
-            var res = await context.WeatherForecastTableSet.AddAsync(new WeatherForecastTable
+            var addedEntity = await AddAsync(new WeatherForecastTable
             {
-                Date = DateOnly.MinValue,
+                Date = DateTime.UtcNow,
                 Summary = "test",
                 TemperatureC = 32,
             });
-            return res.Entity.Id;
+            return addedEntity.Entity;
         }
 
-       public Task<List<WeatherForecastTable>> GetAll()
+       public async Task<List<WeatherForecastTable>> GetAllRecords()
         {
-            return context.WeatherForecastTableSet.ToListAsync();
+            return await GetAllAsync();
         }
     }
 }
