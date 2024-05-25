@@ -1,4 +1,6 @@
-﻿using JEPCO.Application.Interfaces.UnitOfWork;
+﻿using JEPCO.Application.Interfaces.CacheManagement;
+using JEPCO.Application.Interfaces.UnitOfWork;
+using JEPCO.Infrastructure.CacheManagement;
 using JEPCO.Infrastructure.Persistence;
 using JEPCO.Infrastructure.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ public static class StartupExtension
         string connectionString = configuration.GetConnectionString("DefaultConnection");
         AddDatabaseContext(connectionString);
         _services.AddScoped<IUnitOfWork, UnitOfWork>();
+        _services.AddScoped<ICacheManagement, RedisCacheManagement>();
 
         // _services.AddScoped<SomeRequestService>();
 
