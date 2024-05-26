@@ -36,11 +36,14 @@ app.AddSharedMiddlewares();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI();
+
+
+app.UseCors(opt =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins(builder.Configuration.GetValue<string>("AllowedHosts").Split(";"));
+});
 
 app.UseHttpsRedirection();
 
