@@ -10,6 +10,7 @@ namespace JEPCO.Infrastructure.Enums
     {
         Create = 1,
         Update = 2,
-        Delete = 3
+        Delete = 3,
+        SoftDelete = 4,
     }
 }

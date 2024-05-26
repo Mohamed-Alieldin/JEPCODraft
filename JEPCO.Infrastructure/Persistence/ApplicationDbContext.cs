@@ -54,7 +54,7 @@ namespace JEPCO.Infrastructure.Persistence
                             if (property.IsModified)
                             {
                                 auditEntry.ChangedColumns.Add(propertyName);
-                                auditEntry.AuditType = AuditType.Update;
+                                auditEntry.AuditType = entry.Property("IsDeleted").CurrentValue == "false" ? AuditType.Update : AuditType.SoftDelete;
                                 auditEntry.OldValues[propertyName] = property.OriginalValue;
                                 auditEntry.NewValues[propertyName] = property.CurrentValue;
                                 auditEntry.UserId = entry.Property("LastModifiedBy").CurrentValue != null ? entry.Property("LastModifiedBy").CurrentValue.ToString() : "Null";
