@@ -37,6 +37,10 @@ public static class StartupExtension
         });
         #endregion
 
+        // mapper
+        _services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
     }
 
 
