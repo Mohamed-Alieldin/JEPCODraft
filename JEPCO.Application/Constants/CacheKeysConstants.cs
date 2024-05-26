@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace JEPCO.Application.Constants;
 
-public class CacheKeysConstants
+public static class CacheKeysConstants
 {
-    public const string initCacheKey = "initCacheKey";
+    public static CacheKey initCacheKey =  new () {Key = "initCacheKey" , KeyType = KeyType.SingleObject };
+}
+
+
+public class CacheKey
+{
+    public string Key { get; set; }
+    public KeyType KeyType { get; set; }
+}
+
+
+public enum KeyType
+{
+    SingleObject = 1,
+    List = 2
 }
