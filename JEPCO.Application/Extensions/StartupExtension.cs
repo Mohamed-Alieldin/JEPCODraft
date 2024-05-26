@@ -15,8 +15,8 @@ public static class StartupExtension
         _services = services ?? throw new ArgumentNullException(nameof(services));
         //services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        _services.AddScoped<IUserService,UserService>();
-        _services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+        _services.AddScoped<UserAppService>();
+        _services.AddScoped<WeatherForecastAppService>();
 
     }
 }

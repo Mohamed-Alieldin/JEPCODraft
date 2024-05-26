@@ -7,12 +7,12 @@ using Microsoft.Extensions.Localization;
 
 namespace JEPCO.Application.Services.WeatherForecast
 {
-    public class WeatherForecastService : IWeatherForecastService
+    public class WeatherForecastAppService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IStringLocalizer<SharedResource> localizer;
-        public WeatherForecastService(IUnitOfWork unitOfWork, IStringLocalizer<SharedResource> localizer, IMapper mapper)
+        public WeatherForecastAppService(IUnitOfWork unitOfWork, IStringLocalizer<SharedResource> localizer, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.localizer = localizer;

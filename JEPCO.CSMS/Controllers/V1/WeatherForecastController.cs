@@ -1,8 +1,5 @@
-using JEPCO.Application.Models.WeatherForecast;
-using JEPCO.Shared;
-using JEPCO.Shared.Constants;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 using JEPCO.Application.Services.WeatherForecast;
 
 namespace JEPCO.CSMS.Controllers.V1
@@ -14,9 +11,9 @@ namespace JEPCO.CSMS.Controllers.V1
 
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IWeatherForecastService weatherForecastService;
+        private readonly WeatherForecastAppService weatherForecastService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherForecastService weatherForecastService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, WeatherForecastAppService weatherForecastService)
         {
             _logger = logger;
             this.weatherForecastService = weatherForecastService;

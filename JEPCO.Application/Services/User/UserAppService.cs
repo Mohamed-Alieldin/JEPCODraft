@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JEPCO.Application.Services.User
 {
-    public class UserService : IUserService
+    public class UserAppService
     {
     }
 }
