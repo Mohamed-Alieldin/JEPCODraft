@@ -13,12 +13,13 @@ public static class StartupExtension
 
     public static void RegisterInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        _services = services;
+        _services = services ?? throw new ArgumentNullException(nameof(services));
         string connectionString = configuration.GetConnectionString("DefaultConnection");
+        if (string.IsNullOrEmpty(connectionString))
+            throw new NotImplementedException("Database default connection string is not recognized");
+
         AddDatabaseContext(connectionString);
         _services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-        // _services.AddScoped<SomeRequestService>();
 
     }
     private static void AddDatabaseContext(string connectionString)

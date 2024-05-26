@@ -1,4 +1,5 @@
 ﻿
+
 namespace JEPCO.Application.Models.WeatherForecast;
 
 public class WeatherForcasteResponseModel

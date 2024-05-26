@@ -1,5 +1,6 @@
 using JEPCO.Infrastructure.Extensions;
 using JEPCO.Application.Extensions;
+using JEPCO.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +11,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// add extension methods
 builder.Services.RegisterInfrastructureServices(builder.Configuration);
 builder.Services.RegisterApplicationServices(builder.Configuration);
+builder.Services.RegisterSharedServices(builder.Configuration);
+
+
+
+
 
 var app = builder.Build();
+
+// add shared middlewares
+app.AddSharedMiddlewares();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,4 +1,4 @@
-﻿ 
+﻿
 
 namespace JEPCO.Application.Models.WeatherForecast;
 

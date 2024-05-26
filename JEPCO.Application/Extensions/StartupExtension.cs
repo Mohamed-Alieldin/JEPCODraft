@@ -11,7 +11,7 @@ public static class StartupExtension
 
     public static void RegisterApplicationServices(this IServiceCollection services, IConfiguration config)
     {
-        _services = services;
+        _services = services ?? throw new ArgumentNullException(nameof(services));
 
         _services.AddScoped<IUserService,UserService>();
         _services.AddScoped<IWeatherForecastService, WeatherForecastService>();
