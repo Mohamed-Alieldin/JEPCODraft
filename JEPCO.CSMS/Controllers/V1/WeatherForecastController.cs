@@ -14,32 +14,19 @@ namespace JEPCO.CSMS.Controllers.V1
 
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IStringLocalizer<SharedResource> _localizer;
         private readonly IWeatherForecastService weatherForecastService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IStringLocalizer<SharedResource> localizer, IWeatherForecastService weatherForecastService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherForecastService weatherForecastService)
         {
             _logger = logger;
-            _localizer = localizer;
             this.weatherForecastService = weatherForecastService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public WeatherForcasteResponseModel Get()
+        public async Task<IActionResult> Get()
         {
-
-            var data = weatherForecastService.Get();
-
-            return new WeatherForcasteResponseModel()
-            {
-                result = data.Result.Select(a => new WeatherForecast
-                {
-                    Date = a.Date,
-                    Summary = a.Summary,
-                    TemperatureC = 32,
-                }),
-                Message = _localizer.GetString(LocalizationKeysConstant.DataRetrieved)
-            };
+            var data = await weatherForecastService.Get();
+            return Ok(data);
         }
         [HttpPost(Name = "add")]
         public async Task<IActionResult> Post()

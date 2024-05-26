@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using JEPCO.Application.Services.WeatherForecast;
+using System.Reflection;
 
 namespace JEPCO.Application.Extensions;
 
@@ -12,6 +13,7 @@ public static class StartupExtension
     public static void RegisterApplicationServices(this IServiceCollection services, IConfiguration config)
     {
         _services = services ?? throw new ArgumentNullException(nameof(services));
+        //services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         _services.AddScoped<IUserService,UserService>();
         _services.AddScoped<IWeatherForecastService, WeatherForecastService>();
