@@ -8,5 +8,6 @@ namespace JEPCO.Application.Interfaces.Repositories
     {
         Task<List<WeatherForecastTable>> GetAllRecords();
         Task<WeatherForecastTable> CreateNew();
+        Task<WeatherForecastTable> UpdateRow();
     }
 }

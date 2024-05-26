@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Mapper\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>

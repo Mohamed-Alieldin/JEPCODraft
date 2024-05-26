@@ -17,11 +17,16 @@ namespace JEPCO.Infrastructure.Persistence.Repository
         public WeatherForecastRepo(ApplicationDbContext context) : base(context) { }
         public async Task<WeatherForecastTable> CreateNew()
         {
+            Random rnd = new Random();
             var addedEntity = await AddAsync(new WeatherForecastTable
             {
-                Date = DateTime.UtcNow,
+                Month = rnd.Next(1, 12),
+                Day = rnd.Next(1, 30),
+                Year = 2024,
                 Summary = "test",
                 TemperatureC = 32,
+                CreatedAt = DateTime.UtcNow,
+                LastModifiedAt = DateTime.UtcNow,
             });
             return addedEntity.Entity;
         }
@@ -29,6 +34,18 @@ namespace JEPCO.Infrastructure.Persistence.Repository
        public async Task<List<WeatherForecastTable>> GetAllRecords()
         {
             return await GetAllAsync();
+        }
+
+        public async Task<WeatherForecastTable> UpdateRow()
+        {
+            var dm = await GetByIdAsync(7);
+            //dm.Summary = "update";
+            //dm.TemperatureC = 12;
+            dm.IsDeleted = true;
+
+            Update(dm);
+
+            return dm;
         }
     }
 }
