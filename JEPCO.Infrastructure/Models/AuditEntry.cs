@@ -1,12 +1,7 @@
 ﻿using JEPCO.Domain.Entities;
 using JEPCO.Infrastructure.Enums;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace JEPCO.Infrastructure.Models
 {
@@ -32,7 +27,7 @@ namespace JEPCO.Infrastructure.Models
             audit.UserId = UserId;
             audit.Type = AuditType.ToString();
             audit.TableName = TableName;
-            audit.DateTime = DateTime.Now;
+            audit.DateTime = DateTime.UtcNow;
             audit.PrimaryKey = JsonSerializer.Serialize(KeyValues);
             audit.OldValues = OldValues.Count == 0 ? "null" : JsonSerializer.Serialize(OldValues);
             audit.NewValues = NewValues.Count == 0 ? "null" : JsonSerializer.Serialize(NewValues);

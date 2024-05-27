@@ -11,7 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// add extension methods
+
+// add shared extension methods
 builder.Services.RegisterInfrastructureServices(builder.Configuration);
 builder.Services.RegisterApplicationServices(builder.Configuration);
 builder.Services.RegisterSharedServices(builder.Configuration);
