@@ -129,6 +129,9 @@
   <data name="NotFoundDefaultMessage" xml:space="preserve">
     <value>No data exist</value>
   </data>
+  <data name="ResourceCreated" xml:space="preserve">
+    <value>Creation is done successfully</value>
+  </data>
   <data name="UnAuthorizedDefaultMessage" xml:space="preserve">
     <value>User is not authorized</value>
   </data>

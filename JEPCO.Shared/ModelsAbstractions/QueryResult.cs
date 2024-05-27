@@ -15,6 +15,17 @@ public class QueryResult<T>
         Title = title;
     }
 
+    public QueryResult(QueryResultData<T> data)
+    {
+        Data = data;
+    }
+
+    public QueryResult(QueryResultData<T> data , string title)
+    {
+        Data = data;
+        Title = title;
+    }
+
     public string Title { get; set; } = string.Empty;
     public int Status { get; set; } = (int)SuccessResponseEnum.Succeeded;
     public QueryResultData<T> Data { get; set; }

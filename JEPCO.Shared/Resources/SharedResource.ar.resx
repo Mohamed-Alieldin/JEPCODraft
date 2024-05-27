@@ -129,6 +129,9 @@
   <data name="NotFoundDefaultMessage" xml:space="preserve">
     <value>لا يوجد بيانات</value>
   </data>
+  <data name="ResourceCreated" xml:space="preserve">
+    <value>تم الإنشاء بنجاح</value>
+  </data>
   <data name="UnAuthorizedDefaultMessage" xml:space="preserve">
     <value>المستخدم ليس له صلاحية.</value>
   </data>

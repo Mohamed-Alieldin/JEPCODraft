@@ -26,8 +26,12 @@ public class Response<T> : Response
     public Response(T data)
     {
         Data = data;
-        Status = (int)SuccessResponseEnum.Succeeded;
-        Title = string.Empty;
+    }
+
+    public Response(T data, string title)
+    {
+        Data = data;
+        Title = title;
     }
 
     public Response(T data, SuccessResponseEnum responseStatus)
@@ -36,15 +40,15 @@ public class Response<T> : Response
         Status = (int)responseStatus;
     }
 
-    public Response(T data, SuccessResponseEnum responseStatus, string title)
+    public Response(SuccessResponseEnum responseStatus, string title)
     {
-        Data = data;
         Status = (int)responseStatus;
         Title = title;
     }
 
-    public Response(SuccessResponseEnum responseStatus, string title)
+    public Response(T data, SuccessResponseEnum responseStatus, string title)
     {
+        Data = data;
         Status = (int)responseStatus;
         Title = title;
     }

@@ -5,6 +5,7 @@ public class LocalizationKeysConstant
 {
     #region success messages
     public const string DataRetrieved = "DataRetrieved";
+    public const string ResourceCreated= "ResourceCreated";
 
     #endregion
 
