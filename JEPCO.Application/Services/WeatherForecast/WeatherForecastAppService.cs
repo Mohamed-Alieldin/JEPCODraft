@@ -31,9 +31,9 @@ namespace JEPCO.Application.Services.WeatherForecast
             };
         }
 
-        public async Task<WeatherForecastResponse> CreateNewRow()
+        public async Task<WeatherForecastResponse> CreateNewRow(CreateWeatherForecastRequestModel model)
         {
-            var added = await unitOfWork.WeatherForecastRepo.CreateNew();
+            var added = await unitOfWork.WeatherForecastRepo.CreateNew((int)model.Temperature!);
             await unitOfWork.CompleteAsync();
             var res = mapper.Map<WeatherForecastResponse>(added);
             return res;

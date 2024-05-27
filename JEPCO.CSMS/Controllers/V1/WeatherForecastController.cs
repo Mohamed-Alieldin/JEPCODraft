@@ -1,6 +1,8 @@
-
+﻿
 using Microsoft.AspNetCore.Mvc;
 using JEPCO.Application.Services.WeatherForecast;
+using JEPCO.Application.Models.WeatherForecast;
+using JEPCO.Application.Exceptions;
 
 namespace JEPCO.CSMS.Controllers.V1
 {
@@ -25,10 +27,11 @@ namespace JEPCO.CSMS.Controllers.V1
             var data = await weatherForecastService.Get();
             return Ok(data);
         }
+
         [HttpPost(Name = "add")]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post([FromBody] CreateWeatherForecastRequestModel model)
         {
-            var res = await weatherForecastService.CreateNewRow();
+            var res = await weatherForecastService.CreateNewRow(model);
             return Ok(res);
         }
     }

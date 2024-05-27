@@ -15,13 +15,13 @@ namespace JEPCO.Infrastructure.Persistence.Repository
     public class WeatherForecastRepo : Repository<WeatherForecastTable>, IWeatherForecastRepo
     {
         public WeatherForecastRepo(ApplicationDbContext context) : base(context) { }
-        public async Task<WeatherForecastTable> CreateNew()
+        public async Task<WeatherForecastTable> CreateNew(int temperature)
         {
             var addedEntity = await AddAsync(new WeatherForecastTable
             {
                 Date = DateTime.UtcNow,
                 Summary = "test",
-                TemperatureC = 32,
+                TemperatureC = temperature,
             });
             return addedEntity.Entity;
         }

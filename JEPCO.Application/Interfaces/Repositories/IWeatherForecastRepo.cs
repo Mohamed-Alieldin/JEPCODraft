@@ -7,6 +7,6 @@ namespace JEPCO.Application.Interfaces.Repositories
     public interface IWeatherForecastRepo: IRepository<WeatherForecastTable>
     {
         Task<List<WeatherForecastTable>> GetAllRecords();
-        Task<WeatherForecastTable> CreateNew();
+        Task<WeatherForecastTable> CreateNew(int temperature);
     }
 }
