@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BadRequestDefaultMessage" xml:space="preserve">
+    <value>واحد أو أكثر من البيانات المدخلة غير صحيحة</value>
+  </data>
   <data name="DataRetrieved" xml:space="preserve">
     <value>تم عرض البيانات بنجاح</value>
+  </data>
+  <data name="InternalServerErrorDefaultMessage" xml:space="preserve">
+    <value>حدث خطأ ما، الرجاء المحاولة مرة أخرى</value>
+  </data>
+  <data name="NotFoundDefaultMessage" xml:space="preserve">
+    <value>لا يوجد بيانات</value>
+  </data>
+  <data name="UnAuthorizedDefaultMessage" xml:space="preserve">
+    <value>المستخدم ليس له صلاحية.</value>
   </data>
 </root>

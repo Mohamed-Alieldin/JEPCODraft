@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BadRequestDefaultMessage" xml:space="preserve">
+    <value>One or more data validations failed</value>
+  </data>
   <data name="DataRetrieved" xml:space="preserve">
     <value>Data retrieved successfully</value>
+  </data>
+  <data name="InternalServerErrorDefaultMessage" xml:space="preserve">
+    <value>Internal server error, try again later</value>
+  </data>
+  <data name="NotFoundDefaultMessage" xml:space="preserve">
+    <value>No data exist</value>
+  </data>
+  <data name="UnAuthorizedDefaultMessage" xml:space="preserve">
+    <value>User is not authorized</value>
   </data>
 </root>
