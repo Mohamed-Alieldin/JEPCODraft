@@ -29,9 +29,9 @@ namespace JEPCO.CSMS.Controllers.V1
         }
 
         [HttpPost(Name = "add")]
-        public async Task<IActionResult> Post([FromBody] CreateWeatherForecastRequestModel model)
+        public async Task<IActionResult> Post()
         {
-            var res = await weatherForecastService.CreateNewRow(model);
+            var res = await weatherForecastService.CreateNewRow();
             return Ok(res);
         }
     }
