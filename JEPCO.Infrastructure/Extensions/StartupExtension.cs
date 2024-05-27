@@ -35,4 +35,14 @@ public static class StartupExtension
             });
         });
     }
+
+
+    public static void MigrateDatabaseToLatestVersion(IServiceProvider services)
+    {
+        using (var scope = services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            context.Database.Migrate();
+        }
+    }
 }

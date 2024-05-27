@@ -38,8 +38,8 @@ namespace JEPCO.Application.Services.WeatherForecast
 
         public async Task<Response<WeatherForecastResponse>> CreateNewRow()
         {
-            //var added = await unitOfWork.WeatherForecastRepo.CreateNew();
-            var added = await unitOfWork.WeatherForecastRepo.UpdateRow();
+            var added = await unitOfWork.WeatherForecastRepo.CreateNew();
+            //var added = await unitOfWork.WeatherForecastRepo.UpdateRow();
             await unitOfWork.CompleteAsync();
             var res = mapper.Map<WeatherForecastResponse>(added);
             return new (res, SuccessResponseEnum.Created, localizer.GetString(LocalizationKeysConstant.ResourceCreated));

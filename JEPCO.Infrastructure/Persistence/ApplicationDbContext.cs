@@ -2,12 +2,10 @@
 using JEPCO.Infrastructure.Enums;
 using JEPCO.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
+using JEPCO.Infrastructure.Extensions;
+using JEPCO.Domain.Common;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 
 namespace JEPCO.Infrastructure.Persistence
 {
@@ -23,10 +21,17 @@ namespace JEPCO.Infrastructure.Persistence
         {
             ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
+
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.Entity is Audit || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                // Fill audit proeprties
+                FillAuditProperties(entry);
+
+                // Audit Logging 
+                if (entry.Entity is not IAuditLoggableEntity || entry.Entity is Audit || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
+
+                // implement audit logging
                 var auditEntry = new AuditEntry(entry);
                 auditEntry.TableName = entry.Entity.GetType().Name;
                 auditEntries.Add(auditEntry);
@@ -79,7 +84,46 @@ namespace JEPCO.Infrastructure.Persistence
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
+        private void FillAuditProperties(EntityEntry entry)
+        {
+            var now = DateTime.UtcNow;
+
+            // Fill Audit Properties
+            if (entry.Entity is IAuditableEntity ae)
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        ae.CreatedAt = now;
+                        ae.LastModifiedAt = now;
+                        break;
+                    case EntityState.Modified:
+                        Entry(ae).Property(e => e.CreatedAt).IsModified = false;
+                        ae.LastModifiedAt = now;
+                        break;
+                }
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // keep this at top
+            base.OnModelCreating(builder);
+
+            // seed data
+            builder.Seed();
+
+            // Apply cutom enities configurations if any
+            // builder.ApplyConfiguration(new UserConfiguration());
+
+            // Add sequences if needed
+            // builder.HasSequence(SequenceNameConstants.GovernmentSequence, (e) => { e.StartsAt(1000); });
+        }
+
+
+        #region Entities
         public DbSet<Audit> AuditLogs { get; set; }
         public virtual DbSet<WeatherForecastTable> WeatherForecastTableSet { get; set; }
+        #endregion
     }
 }

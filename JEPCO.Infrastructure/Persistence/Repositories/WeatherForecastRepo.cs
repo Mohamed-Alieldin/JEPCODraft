@@ -25,8 +25,6 @@ namespace JEPCO.Infrastructure.Persistence.Repository
                 Year = 2024,
                 Summary = "test",
                 TemperatureC = 32,
-                CreatedAt = DateTime.UtcNow,
-                LastModifiedAt = DateTime.UtcNow,
             });
             return addedEntity.Entity;
         }
