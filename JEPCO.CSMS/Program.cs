@@ -4,6 +4,10 @@ using JEPCO.Application.Extensions;
 using JEPCO.Shared.Extensions;
 using Hellang.Middleware.ProblemDetails;
 using JEPCO.Application.Exceptions;
+using Keycloak.AuthServices.Authentication;
+using Keycloak.AuthServices.Authorization;
+using Microsoft.Extensions.Configuration;
+using Keycloak.AuthServices.Common;
 
 
 
@@ -14,6 +18,29 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+// Add Keycloak services
+builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthorization()
+    .AddKeycloakAuthorization(options => {
+        //options.EnableRolesMapping = RolesClaimTransformationSource.Realm;
+       // options.RoleClaimType = KeycloakConstants.RoleClaimType;
+    })
+    .AddAuthorizationBuilder()
+    //.AddPolicy(
+    //    "AdminPolicy",
+    //    policy => policy.RequireRealmRoles("Realm_Admin"))
+    //.AddPolicy("", policy => policy.RequireResourceRoles("Admin"))
+    ;
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("AdminAndUser", builder =>
+//    {
+//        builder
+//               .RequireRealmRoles("Realm_Admin") // Realm role is fetched from token
+//               .RequireResourceRoles("Admin"); // Resource/Client role is fetched from token
+//    });
+//});
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -66,6 +93,8 @@ app.UseCors(opt =>
 
 app.UseHttpsRedirection();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
