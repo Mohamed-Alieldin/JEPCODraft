@@ -5,11 +5,13 @@ using JEPCO.Application.Models.WeatherForecast;
 using JEPCO.Application.Exceptions;
 using JEPCO.Shared.ResponsesAbstractions;
 using JEPCO.Shared.ModelsAbstractions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JEPCO.CSMS.Controllers.V1
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class WeatherForecastController : ControllerBase
     {
 
