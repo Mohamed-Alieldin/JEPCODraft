@@ -1,45 +1,38 @@
 ﻿using JEPCO.Application.Interfaces.Repositories;
 using JEPCO.Application.Interfaces.UnitOfWork;
-using JEPCO.Infrastructure.Persistence.Repository;
-using Microsoft.EntityFrameworkCore;
+using JEPCO.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace JEPCO.Infrastructure.Persistence.UnitOfWork
+namespace JEPCO.Infrastructure.Persistence.UnitOfWork;
+
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    private readonly ApplicationDbContext dbContext;
+    private IResellerRepo _resellerRepo;
+    public UnitOfWork(ApplicationDbContext dbContext)
     {
-        private readonly ApplicationDbContext dbContext;
-        private IWeatherForecastRepo _weatherForecastRepo;
-        public UnitOfWork(ApplicationDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        this.dbContext = dbContext;
+    }
 
-        public IWeatherForecastRepo WeatherForecastRepo
+    public IResellerRepo ResellerRepo
+    {
+        get
         {
-            get
-            {
-                _weatherForecastRepo ??= new WeatherForecastRepo(dbContext);
-                return _weatherForecastRepo;
-            }
+            _resellerRepo ??= new ResellerRepo(dbContext);
+            return _resellerRepo;
         }
-        public int Complete()
-        {
-            return dbContext.SaveChanges();
-        }
-        public Task<int> CompleteAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            return dbContext.SaveChangesAsync(cancellationToken);
-        }
+    }
+    public int Complete()
+    {
+        return dbContext.SaveChanges();
+    }
+    public Task<int> CompleteAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        return dbContext.SaveChangesAsync(cancellationToken);
+    }
 
-        public Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            return dbContext.Database.BeginTransactionAsync(cancellationToken);
-        }
+    public Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        return dbContext.Database.BeginTransactionAsync(cancellationToken);
     }
 }

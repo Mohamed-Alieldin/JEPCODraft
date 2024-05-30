@@ -21,9 +21,9 @@ namespace JEPCO.Infrastructure.Models
         public AuditType AuditType { get; set; }
         public List<string> ChangedColumns { get; } = new List<string>();
 
-        public Audit ToAudit()
+        public AuditLogEntity ToAudit()
         {
-            var audit = new Audit();
+            var audit = new AuditLogEntity();
             audit.UserId = UserId;
             audit.Type = AuditType.ToString();
             audit.TableName = TableName;

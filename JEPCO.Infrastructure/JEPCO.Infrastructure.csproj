@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Mapper\" />
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

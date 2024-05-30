@@ -14,9 +14,38 @@ namespace JEPCO.Infrastructure.Persistence
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
            : base(options)
         {
+            // keep these configurations
+            // Ensures that setting and geting datetimes are done in utc
+            // Ensures taht no conversion for min and max datetimes are done in the db
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // keep this at top
+            base.OnModelCreating(builder);
+
+            // seed data
+            builder.Seed();
+
+            // Apply cutom enities configurations if any
+            // builder.ApplyConfiguration(new UserConfiguration());
+
+            // Add sequences if needed
+            // builder.HasSequence(SequenceNameConstants.GovernmentSequence, (e) => { e.StartsAt(1000); });
+        }
+        public override int SaveChanges()
+        {
+            BeforeSaveChanges();
+            return base.SaveChanges();
+        }
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            BeforeSaveChanges();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
         private void BeforeSaveChanges()
         {
             ChangeTracker.DetectChanges();
@@ -27,8 +56,8 @@ namespace JEPCO.Infrastructure.Persistence
                 // Fill audit proeprties
                 FillAuditProperties(entry);
 
-                // Audit Logging 
-                if (entry.Entity is not IAuditLoggableEntity || entry.Entity is Audit || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                // AuditLogEntity Logging 
+                if (entry.Entity is not IAuditLoggableEntity || entry.Entity is AuditLogEntity || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
 
                 // implement audit logging
@@ -73,22 +102,11 @@ namespace JEPCO.Infrastructure.Persistence
                 AuditLogs.Add(auditEntry.ToAudit());
             }
         }
-        public override int SaveChanges()
-        {
-            BeforeSaveChanges();
-            return base.SaveChanges();
-        }
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
-        {
-            BeforeSaveChanges();
-            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-        }
-
         private void FillAuditProperties(EntityEntry entry)
         {
             var now = DateTime.UtcNow;
 
-            // Fill Audit Properties
+            // Fill AuditLogEntity Properties
             if (entry.Entity is IAuditableEntity ae)
             {
                 switch (entry.State)
@@ -105,25 +123,12 @@ namespace JEPCO.Infrastructure.Persistence
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            // keep this at top
-            base.OnModelCreating(builder);
-
-            // seed data
-            builder.Seed();
-
-            // Apply cutom enities configurations if any
-            // builder.ApplyConfiguration(new UserConfiguration());
-
-            // Add sequences if needed
-            // builder.HasSequence(SequenceNameConstants.GovernmentSequence, (e) => { e.StartsAt(1000); });
-        }
+        
 
 
         #region Entities
-        public DbSet<Audit> AuditLogs { get; set; }
-        public virtual DbSet<WeatherForecastTable> WeatherForecastTableSet { get; set; }
+        public DbSet<AuditLogEntity> AuditLogs { get; set; }
+        public DbSet<ResellerEntity> Resellers { get; set; }
         #endregion
     }
 }

@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JEPCO.Domain\JEPCO.Domain.csproj" />
-    <ProjectReference Include="..\JEPCO.Shared\JEPCO.Shared.csproj" />
+    <Compile Remove="Interfaces\ApplicationDbContext\**" />
+    <EmbeddedResource Remove="Interfaces\ApplicationDbContext\**" />
+    <None Remove="Interfaces\ApplicationDbContext\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\ApplicationDbContext\" />
+    <ProjectReference Include="..\JEPCO.Domain\JEPCO.Domain.csproj" />
+    <ProjectReference Include="..\JEPCO.Shared\JEPCO.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Mapper\" />
   </ItemGroup>
 
 </Project>
